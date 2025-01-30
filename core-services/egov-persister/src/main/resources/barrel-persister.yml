@@ -1,0 +1,55 @@
+serviceMaps:
+  serviceName: Barrel Service
+  mappings:
+  - version: 1.0
+    name: BAR
+    description: Persists restaurant details in service table
+    fromTopic: save-barrel-restaurant-detail
+    isTransaction: true
+    queryMaps:
+      - query: INSERT INTO restaurant_details(id, code, trade_name, legal_name, liquor_licence_number, pan, gst_number, tin_no, district_id, division_id, circle_id, fl_licence_id, active, created_by, created_time, last_modified_by, last_modified_time)  VALUES (?::uuid, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
+        basePath: restaurantDetail
+        jsonMaps:
+          - jsonPath: $.restaurantDetail.id
+          - jsonPath: $.restaurantDetail.code
+          - jsonPath: $.restaurantDetail.trade_name
+          - jsonPath: $.restaurantDetail.legal_name
+          - jsonPath: $.restaurantDetail.liquor_licence_number
+          - jsonPath: $.restaurantDetail.pan
+          - jsonPath: $.restaurantDetail.gst_number
+          - jsonPath: $.restaurantDetail.tin_no
+          - jsonPath: $.restaurantDetail.district_id
+          - jsonPath: $.restaurantDetail.division_id
+          - jsonPath: $.restaurantDetail.circle_id
+          - jsonPath: $.restaurantDetail.fl_licence_id
+          - jsonPath: $.restaurantDetail.active
+          - jsonPath: $.restaurantDetail.auditDetails.created_by
+          - jsonPath: $.restaurantDetail.auditDetails.created_time
+          - jsonPath: $.restaurantDetail.auditDetails.last_modified_by
+          - jsonPath: $.restaurantDetail.auditDetails.last_modified_time
+
+
+  - version: 1.0
+    name: BAR
+    description: Persists restaurant details in service table
+    fromTopic: update-barrel-restaurant-details
+    isTransaction: true
+    queryMaps:
+      - query: UPDATE restaurant_details SET code=?, trade_name=?, legal_name=?, liquor_licence_number=?, pan=?, gst_number=?, tin_no=?, district_id=?, division_id=?, circle_id=?, fl_licence_id=?, active=?, last_modified_by=?, last_modified_time=? WHERE id=?::uuid;
+        basePath: restaurantDetail
+        jsonMaps:
+          - jsonPath: $.restaurantDetail.code
+          - jsonPath: $.restaurantDetail.trade_name
+          - jsonPath: $.restaurantDetail.legal_name
+          - jsonPath: $.restaurantDetail.liquor_licence_number
+          - jsonPath: $.restaurantDetail.pan
+          - jsonPath: $.restaurantDetail.gst_number
+          - jsonPath: $.restaurantDetail.tin_no
+          - jsonPath: $.restaurantDetail.district_id
+          - jsonPath: $.restaurantDetail.division_id
+          - jsonPath: $.restaurantDetail.circle_id
+          - jsonPath: $.restaurantDetail.fl_licence_id
+          - jsonPath: $.restaurantDetail.active
+          - jsonPath: $.restaurantDetail.auditDetails.last_modified_by
+          - jsonPath: $.restaurantDetail.auditDetails.last_modified_time
+          - jsonPath: $.restaurantDetail.id
