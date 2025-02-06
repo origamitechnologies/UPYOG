@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: restaurant-billing-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: restaurant-billing-service
+  template:
+    metadata:
+      labels:
+        app: restaurant-billing-service
+    spec:
+      containers:
+        - name: billing-service
+          image: 711387122833.dkr.ecr.ap-south-1.amazonaws.com/billing-service:latest
+          ports:
+            - containerPort: 8080
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: restaurant-billing-service
+spec:
+  selector:
+    app: myapp
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8080
+  type: LoadBalancer
